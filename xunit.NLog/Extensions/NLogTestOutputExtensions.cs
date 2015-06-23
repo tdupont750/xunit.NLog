@@ -8,9 +8,15 @@ namespace Xunit
     public static class NLogTestOutputExtensions
     {
         public static ILogger GetNLogLogger(
+            this ITestOutputHelper testOutputHelper)
+        {
+            return testOutputHelper.GetNLogLogger(string.Empty, true);
+        }
+
+        public static ILogger GetNLogLogger(
             this ITestOutputHelper testOutputHelper,
-            string loggerName = null,
-            bool addNumericSuffix = true)
+            string loggerName,
+            bool addNumericSuffix = false)
         {
             var addedName = TestOutputHelpers.AddTestOutputHelper(
                 testOutputHelper,
