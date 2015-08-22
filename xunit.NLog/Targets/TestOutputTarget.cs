@@ -41,7 +41,16 @@ namespace Xunit.NLog.Targets
                 return;
 
             var message = Layout.Render(logEvent);
-            testOutputHelper.WriteLine(message);
+
+            try
+            {
+                testOutputHelper.WriteLine(message);
+            }
+            catch (InvalidOperationException)
+            {
+                // If NLog is set to async, and we try to write to a test 
+                // that has been uninitialized, then it will throw.
+            }
         }
     }
 }
