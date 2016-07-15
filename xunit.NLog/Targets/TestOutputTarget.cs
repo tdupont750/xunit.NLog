@@ -15,20 +15,20 @@ namespace Xunit.NLog.Targets
         public void Add(ITestOutputHelper testOutputHelper, string loggerName)
         {
             if (string.IsNullOrWhiteSpace(loggerName))
-                throw new ArgumentNullException("loggerName");
+                throw new ArgumentNullException(nameof(loggerName));
 
             if (_map.TryAdd(loggerName, testOutputHelper))
                 return;
 
             throw new ArgumentException(
                 "LoggerName already in use",
-                "loggerName");
+                nameof(loggerName));
         }
 
         public bool Remove(string loggerName)
         {
             if (string.IsNullOrWhiteSpace(loggerName))
-                throw new ArgumentNullException("loggerName");
+                throw new ArgumentNullException(nameof(loggerName));
 
             ITestOutputHelper testOutputHelper;
             return _map.TryRemove(loggerName, out testOutputHelper);
@@ -40,16 +40,18 @@ namespace Xunit.NLog.Targets
             if (!_map.TryGetValue(logEvent.LoggerName, out testOutputHelper))
                 return;
 
-            var message = Layout.Render(logEvent);
-
             try
             {
+                var message = Layout.Render(logEvent);
                 testOutputHelper.WriteLine(message);
             }
-            catch (InvalidOperationException)
+            catch (Exception ex)
             {
                 // If NLog is set to async, and we try to write to a test 
                 // that has been uninitialized, then it will throw.
+
+                var logger = LogManager.GetCurrentClassLogger();
+                logger.Debug("TestOutputTarget.Write - Exception: {0}", ex.Message);
             }
         }
     }

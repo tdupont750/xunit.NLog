@@ -32,13 +32,13 @@ namespace Xunit.NLog.Helpers
             return loggerName;
         }
 
-        public static void RemoveTestOutputHelper(string name)
+        public static void RemoveTestOutputHelper(string loggerName)
         {
             var targets = LogManager.Configuration.AllTargets
                 .OfType<TestOutputTarget>();
 
             foreach (var target in targets)
-                target.Remove(name);
+                target.Remove(loggerName);
         }
     }
 }
