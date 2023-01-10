@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>xUnit.NLog</id>
+    <version>5.1.1</version>
+    <title>xUnit NLog</title>
+    <authors>Tom Dupont;Robert Angers</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>https://github.com/robert-stratecglobal/xunit.NLog</projectUrl>
+    <description>NLog extensions for xUnit test output</description>
+    <releaseNotes>Upgrade to latest NLog and .NET 4.8</releaseNotes>
+    <copyright>"Copyright ©  2023</copyright>
+    <tags>xUnit NLog logger</tags>
+  </metadata>
+</package>
